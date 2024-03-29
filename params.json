@@ -1,0 +1,17 @@
+{
+    "jobs": [
+        {
+            "title": "Python程序员",
+            "age": {
+                "min": 20,
+                "max": 35
+            },
+            "requirements": {
+                "keywords": [
+                    "Django", "Flask"
+                ],
+                "description": "该职位需要面试者有三年以上的Python开发经验，需要熟悉Django、Flask等 Web框架。"
+            }
+        }
+    ]
+}
