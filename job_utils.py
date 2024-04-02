@@ -86,4 +86,4 @@ def loop_recommend(driver, max_idx, job, client):
 
         except Exception as e:
             print(f"An error occurred: {e}")
-            break
+            continue

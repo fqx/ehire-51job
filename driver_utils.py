@@ -12,10 +12,13 @@ import re
 
 # import undetected_chromedriver as uc
 xpath_qr = '//area[@class="change_loginWay_img"]'
-xpath_age = '//*[@id="menuMainContainer"]/section/div/div/div[2]/div[3]/div[3]/div[1]/div[{}]/div/div/div/div/section/div[2]/div[2]/div[1]/div[2]/div[1]'
+xpath_group = '//div[@role="group"]'
+# xpath_age = '//*[@id="menuMainContainer"]/section/div/div/div/div[3]/div[3]/div[1]/div[{}]/div/div/div/div/section/div[2]/div[2]/div[1]/div[2]/div[1]'
+xpath_age = '//div[@role="group"]/div[{}]/div/div/div/div/section/div[2]/div[2]/div[1]/div[2]/div[1]'
 xpath_recommendations = '//li[contains(@class, "menu nav_icon_1")]'
 xpath_job = "//div[@class='menu-title at'][contains(text(),'{}')]"
-xpath_resume_card = '//*[@id="menuMainContainer"]/section/div/div/div[2]/div[3]/div[3]/div[1]/div[{}]'
+# xpath_resume_card = '//*[@id="menuMainContainer"]/section/div/div/div/div[3]/div[3]/div[1]/div[{}]'
+xpath_resume_card = '//div[@role="group"]/div[{}]'
 xpath_resume_page = '//*[@id="resume-page"]/div/div/div[2]/div[4]'
 xpath_say_hi = '//div[@class="main_action_item hi_chat"]'
 xpath_i_know_after_say_hi = '//*[@id="resume-page"]/div/div/div[3]/div/div[1]/div/div/div[2]/div/div/div[2]/div[2]/div/div[2]/button'
@@ -51,7 +54,7 @@ def get_age(driver, idx):
             age = driver.find_element(By.XPATH, xpath_age.format(idx))
             if 1 < idx:
                 driver.execute_script('arguments[0].scrollIntoView(true)',
-                                      driver.find_element(By.XPATH, xpath_resume_card.format(idx - 1)))
+                                      driver.find_element(By.XPATH, xpath_resume_card.format(idx -1)))
             age = age.text
             break
 
