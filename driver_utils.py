@@ -101,8 +101,15 @@ def get_resume(driver, div):
             break
 
     wait.until(EC.visibility_of_element_located((By.ID, 'work')))
-    resume_detail = driver.find_element(By.ID, 'work')
-    resume_text = resume_detail.get_attribute('textContent').strip()
+    resume = list()
+    for section in ['selfintro', 'work', 'project', 'education']:
+        try:
+            i_div = driver.find_element(By.ID, section)
+            i_text = i_div.get_attribute('textContent').strip()
+            resume.append(i_text)
+        except NoSuchElementException:
+            continue
+    resume_text = ' ■'.join(resume)
     return ' '.join(resume_text.strip().split())
 
 
@@ -148,5 +155,5 @@ def load_next_page(driver, idx):
     print('载入更多简历')
     ActionChains(driver).move_to_element_with_offset(
         driver.find_element(By.XPATH, xpath_resume_card.format(idx)), 0, 100).click().send_keys(
-        Keys.END).perform()
+        Keys.END).send_keys(Keys.PAGE_DOWN).perform()
     time.sleep(3)
