@@ -20,9 +20,10 @@ xpath_job = "//div[@class='menu-title at'][contains(text(),'{}')]"
 # xpath_resume_card = '//*[@id="menuMainContainer"]/section/div/div/div/div[3]/div[3]/div[1]/div[{}]'
 xpath_resume_card = '//div[@role="group"]/div[{}]'
 xpath_resume_page = '//*[@id="resume-page"]/div/div/div[2]/div[4]'
-xpath_say_hi = '//div[@class="main_action_item hi_chat"]'
-xpath_i_know_after_say_hi = '//*[@id="resume-page"]/div/div/div[3]/div/div[1]/div/div/div[2]/div/div/div[2]/div[2]/div/div[2]/button'
-xpath_resume_close = '//*[@id="container"]/div/div[2]/div/div/div[2]/div/div[2]/div[1]/h3/div/span'
+xpath_say_hi = '//div[@class="main_action_item_wide hi_chat"]'
+xpath_close_say_hi = '//div[contains(@class, "el-tooltip operate-item")][2]'
+xpath_close_chat = '//div[@class="edit-btn right"]'
+xpath_resume_close = '//img[@class="close"]'
 
 
 def log_in(driver):
@@ -90,15 +91,15 @@ def get_age(driver, idx):
 
 def get_resume(driver, div):
     time.sleep(3)
-    original_window = driver.current_window_handle
-    assert len(driver.window_handles) == 1
+    # original_window = driver.current_window_handle
+    # assert len(driver.window_handles) == 1
     div.click()
     wait = WebDriverWait(driver, 10)
-    wait.until(EC.number_of_windows_to_be(2))
-    for window_handle in driver.window_handles:
-        if window_handle != original_window:
-            driver.switch_to.window(window_handle)
-            break
+    # wait.until(EC.number_of_windows_to_be(2))
+    # for window_handle in driver.window_handles:
+    #     if window_handle != original_window:
+    #         driver.switch_to.window(window_handle)
+    #         break
 
     wait.until(EC.visibility_of_element_located((By.ID, 'work')))
     resume = list()
@@ -118,15 +119,20 @@ def say_hi(driver):
     say_hi_button = driver.find_element(By.XPATH, xpath_say_hi)
     say_hi_button.click()
     time.sleep(1)
-    # driver.find_element(By.XPATH, xpath_i_know_after_say_hi).click()
+    driver.find_element(By.XPATH, xpath_close_say_hi).click()
+    time.sleep(1)
+    driver.find_element(By.XPATH, xpath_close_chat).click()
+    time.sleep(1)
 
 
 def close_resume(driver):
     time.sleep(2)
-    driver.close()
+    # driver.close()
 
     # Switch back to the old tab or window
-    driver.switch_to.window(driver.window_handles[0])
+    # driver.switch_to.window(driver.window_handles[0])
+
+    driver.find_element(By.XPATH, xpath_resume_close).click()
 
 
 def scroll_down(driver):
