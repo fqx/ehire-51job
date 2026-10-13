@@ -4,6 +4,10 @@
 
 ## Installation
 
+Use Python 3.10 or 3.11 (dependency smoke tests verified on both).
+The pinned `undetected-chromedriver==3.5.5` imports `distutils`, which was
+removed from the Python standard library in 3.12.
+
 `pip install -r requirements.txt`
 
 ## Usage
